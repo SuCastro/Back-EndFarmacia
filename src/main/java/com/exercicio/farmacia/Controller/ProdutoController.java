@@ -1,9 +1,8 @@
-package com.exercicio.farmacia.controller;
+package com.exercicio.farmacia.Controller;
 
 import java.util.List;
-
-import com.exercicio.farmacia.model.TemaModel;
-import com.exercicio.farmacia.repository.TemaRepository;
+import com.exercicio.farmacia.Model.ProdutoModel;
+import com.exercicio.farmacia.Repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,36 +18,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/tema")
-public class TemaController {
+@RequestMapping("/Produto")
+public class ProdutoController {
 	
 	@Autowired
-	private TemaRepository repository;
+	private ProdutoRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<TemaModel>> getAll() {
+	public ResponseEntity<List<ProdutoModel>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<TemaModel> getById(@PathVariable long id) {
+	public ResponseEntity<ProdutoModel> getById(@PathVariable long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<TemaModel>> getByName(@PathVariable String nome) {
+	public ResponseEntity<List<ProdutoModel>> getByName(@PathVariable String nome) {
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(nome));
 	}
 	
 	@PostMapping
-	public ResponseEntity<TemaModel> post (@RequestBody TemaModel tema) {
+	public ResponseEntity<ProdutoModel> post (@RequestBody ProdutoModel tema) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(repository.save(tema));
 	}
 	
 	@PutMapping
-	public ResponseEntity<TemaModel> put (@RequestBody TemaModel tema) {
+	public ResponseEntity<ProdutoModel> put (@RequestBody ProdutoModel tema) {
 		return ResponseEntity.ok(repository.save(tema));
 	}
 	

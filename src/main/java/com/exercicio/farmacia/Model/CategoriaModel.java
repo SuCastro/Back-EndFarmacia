@@ -1,21 +1,18 @@
-package com.exercicio.farmacia.model;
+package com.exercicio.farmacia.Model;
 
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "postagem")
-public class PostagemModel {
+@Table(name = "Categoria")
+public class CategoriaModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,15 +23,12 @@ public class PostagemModel {
 	private String titulo;
 	
 	@NotBlank
-	@Size (min = 5, max = 100)
-	private String texto;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date data = new java.sql.Date(System.currentTimeMillis());
-	
+	@Size (min = 10, max = 100)
+	private String descricao;
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
-	private TemaModel tema;
+	private ProdutoModel produto;
 
 	public Long getId() {
 		return id;
@@ -49,23 +43,17 @@ public class PostagemModel {
 		this.titulo = titulo;
 	}
 	public String getTexto() {
-		return texto;
+		return descricao;
 	}
 	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-	public Date getData() {
-		return data;
-	}
-	public void setData(Date data) {
-		this.data = data;
+		this.descricao = texto;
 	}
 	
-	public TemaModel getTema() {
-		return tema;
+	public ProdutoModel getTema() {
+		return produto;
 	}
 	
-	public void setTema(TemaModel tema) {
-		this.tema = tema;
+	public void setTema(ProdutoModel tema) {
+		this.produto = tema;
 	}
 }

@@ -1,4 +1,4 @@
-package com.exercicio.farmacia.model;
+package com.exercicio.farmacia.Model;
 
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "tb_tema")
-public class TemaModel {
+@Table(name = "tb_produto")
+public class ProdutoModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,9 @@ public class TemaModel {
 	@NotNull
 	private String descricao;
 	
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL) 
-	@JsonIgnoreProperties("tema")
-	private List <PostagemModel> postagem;
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL) 
+	@JsonIgnoreProperties("produto")
+	private List <CategoriaModel> categoria;
 	
 	public long getId() {
 		return id;
@@ -42,11 +42,11 @@ public class TemaModel {
 		this.descricao = descricao;
 	}
 	
-	public List<PostagemModel> getPostagem() {
-		return postagem;
+	public List<CategoriaModel> getPostagem() {
+		return categoria;
 	}
 	
-	public void setPostagem(List<PostagemModel> postagem) {
-		this.postagem = postagem;
+	public void setPostagem(List<CategoriaModel> postagem) {
+		this.categoria = postagem;
 	}
 }

@@ -1,9 +1,9 @@
-package com.exercicio.farmacia.controller;
+package com.exercicio.farmacia.Controller;
 
 import java.util.List;
 import javax.validation.Valid;
-import com.exercicio.farmacia.model.PostagemModel;
-import com.exercicio.farmacia.repository.PostagemRepository;
+import com.exercicio.farmacia.Model.CategoriaModel;
+import com.exercicio.farmacia.Repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,36 +18,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/Postagem")
+@RequestMapping("/Categoria")
 @CrossOrigin("*")
-public class PostagemController {
+public class CategoriaController {
 	
 	@Autowired
-	private PostagemRepository repository;
+	private CategoriaRepository repository;
 	
 	@GetMapping
-	public ResponseEntity <List<PostagemModel>> GetAll() {
+	public ResponseEntity <List<CategoriaModel>> GetAll() {
 		return ResponseEntity.status(200).body(repository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity <PostagemModel> GetById(@PathVariable Long id) {
+	public ResponseEntity <CategoriaModel> GetById(@PathVariable Long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());	
 	}
 	
 	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity <List<PostagemModel>> GetByTitulo(@PathVariable String titulo) {
+	public ResponseEntity <List<CategoriaModel>> GetByTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
 	}
 	
 	@PostMapping
-	public ResponseEntity <PostagemModel> post(@Valid @RequestBody PostagemModel NovaPostagem) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(NovaPostagem));
+	public ResponseEntity <CategoriaModel> post(@Valid @RequestBody CategoriaModel NovaCategoria) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(NovaCategoria));
 	}
 
 	@PutMapping
-	public ResponseEntity <PostagemModel> put(@Valid @RequestBody PostagemModel NovaPostagem) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(NovaPostagem));
+	public ResponseEntity <CategoriaModel> put(@Valid @RequestBody CategoriaModel NovaCategoria) {
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(NovaCategoria));
 	}
 	
 	@DeleteMapping("/{id}")
